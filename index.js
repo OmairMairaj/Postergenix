@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron');
 const url = require('url');
 const path = require('path');
 const XLSX = require('xlsx');
@@ -19,15 +19,24 @@ const createWindow = () => {
         width: 1000,
         height: 800,
         minWidth: 1000,
+        // frame: false,
         minHeight: 800,
+        icon: path.join(__dirname, 'assets', 'logo.png'),
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
         },
     })
 
-    if (isDev) {
-        win.webContents.openDevTools();
-    }
+    // if (isDev) {
+    //     win.webContents.openDevTools();
+    // }
+
+    win.on('closed', () => {
+        if (userManualWindow) {
+            userManualWindow.close();
+        }
+        win = null;
+    });
 
     const startUrl = url.format({
         pathname: path.join(__dirname, './renderer/index.html'),
@@ -36,9 +45,37 @@ const createWindow = () => {
 
     win.loadFile('renderer/index.html');
 }
+let userManualWindow;
+
+function createUserManualWindow() {
+    // Create a new window for the user manual
+    userManualWindow = new BrowserWindow({
+        width: 800,
+        height: 700,
+        title: "User Manual",
+        icon: path.join(__dirname, 'assets', 'logo.png'),
+        menu: null,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
+    });
+
+    userManualWindow.setMenuBarVisibility(false);
+
+    // Load the user manual html file
+    userManualWindow.loadFile('renderer/user-manual.html');
+
+    // Clean up the window when it is closed
+    userManualWindow.on('closed', () => userManualWindow = null);
+}
+
 
 app.whenReady().then(() => {
     createWindow()
+
+    const mainMenu = Menu.buildFromTemplate(menu);
+    Menu.setApplicationMenu(mainMenu);
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
@@ -46,6 +83,56 @@ app.whenReady().then(() => {
         }
     })
 })
+
+const menu = [
+    {
+        label: 'File',
+        submenu: [
+            {
+                label: 'Quit',
+                accelerator: 'Ctrl+W',
+                click: () => app.quit()
+            }
+        ]
+    },
+    {
+        label: 'View',
+        submenu: [
+            { role: 'reload' },
+            { role: 'forcereload' },
+            { role: 'toggledevtools' },
+            { type: 'separator' },
+            { role: 'resetzoom' },
+            { role: 'zoomin' },
+            { role: 'zoomout' },
+            { type: 'separator' },
+            { role: 'togglefullscreen' }
+        ]
+    },
+    {
+        label: 'Window',
+        submenu: [
+            { role: 'minimize' },
+            { role: 'resetzoom' },
+            { role: 'close' }
+        ]
+    },
+    {
+        label: 'Help',
+        submenu: [
+            {
+                label: 'User Manual',
+                click() {
+                    if (!userManualWindow) {
+                        createUserManualWindow();
+                    } else {
+                        userManualWindow.focus();
+                    }
+                }
+            }
+        ]
+    }
+]
 
 app.on('window-all-closed', () => {
     if (!isMac) {
@@ -124,9 +211,9 @@ ipcMain.on('generate-poster', (event, product) => {
     win.webContents.once('did-finish-load', () => {
         win.webContents.send('load-product', product);
     });
-}); 
+});
 
-ipcMain.on('save-image', (event, dataUrl) => {
+ipcMain.on('save-image', async (event, dataUrl) => {
     const desktopPath = app.getPath('desktop');
     const date = new Date();
     const dateString = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
@@ -144,7 +231,7 @@ ipcMain.on('save-image', (event, dataUrl) => {
     // Convert data URL to buffer and save the file
     const base64Data = dataUrl.replace(/^data:image\/png;base64,/, "");
     const imgBuffer = Buffer.from(base64Data, 'base64');
-    
+
     fs.writeFile(imagePath, imgBuffer, err => {
         if (err) {
             console.error('Failed to save image:', err);
@@ -154,5 +241,49 @@ ipcMain.on('save-image', (event, dataUrl) => {
         // Optionally, you can send back a success message or the file path to the renderer
         event.reply('image-saved', imagePath);
     });
+});
+
+
+ipcMain.on('generate-bulk-posters', async (event, productsList) => {
+    win.loadFile(path.join(__dirname, 'renderer', 'bulk.html'));
+
+    // for (let i = 0; i < productsList.length; i++) {
+    // const product = productsList[i];
+    // Generate poster logic (this could be a separate function)
+    win.webContents.once('did-finish-load', () => {
+        win.webContents.send('load-page', productsList);
+    });
+    // Save poster logic (similar to the 'save-image' logic already implemented)
+    // const desktopPath = app.getPath('desktop');
+    // const date = new Date();
+    // const dateString = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    // const postersPath = path.join(desktopPath, 'posters', dateString);
+
+    // Check if the directory exists, create it if it doesn't
+    // if (!fs.existsSync(postersPath)) {
+    //     fs.mkdirSync(postersPath, { recursive: true });
+    // }
+
+    // Define the path for the image file
+    // const timestamp = Date.now();
+    // const imagePath = path.join(postersPath, `poster-${timestamp}.png`);
+
+    // Convert data URL to buffer and save the file
+    // const base64Data = dataUrl.replace(/^data:image\/png;base64,/, "");
+    // const imgBuffer = Buffer.from(base64Data, 'base64');
+
+    // fs.writeFile(imagePath, imgBuffer, err => {
+    //     if (err) {
+    //         console.error('Failed to save image:', err);
+    //         return;
+    //     }
+    //     console.log('Image saved successfully to:', imagePath);
+    // Optionally, you can send back a success message or the file path to the renderer
+    //     event.reply('image-saved', imagePath);
+    // });
+    // After each poster is generated and saved:
+    // win.webContents.send('update-progress', i + 1, productsList.length);
+    // }
+    // return 'completed'; // This could return a more detailed status if needed
 });
 

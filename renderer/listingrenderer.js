@@ -9,10 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const tableBody = document.getElementById('productsTable').querySelector('tbody');
             // Clear previous table rows
             tableBody.innerHTML = '';
-
+            let count = 1;
             // Insert each product into the table
             products.forEach(product => {
                 const row = tableBody.insertRow();
+                row.insertCell().textContent = count;
                 const imgCell = row.insertCell();
                 const img = document.createElement('img');
                 img.src = product.imagePath;
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 imgCell.appendChild(img);
                 row.insertCell().textContent = product.itemNumber;
                 row.insertCell().textContent = product.packing;
-                row.insertCell().textContent = `$${product.salePrice}`; // Format as currency
+                row.insertCell().textContent = `${product.salePrice}`; // Format as currency
 
 
                 // Add a button to generate the poster
@@ -32,9 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     generatePoster(product);
                 });
                 posterButtonCell.appendChild(posterButton);
+                count = count + 1;
+            });
+            document.getElementById('bulkGenerateButton').addEventListener('click', () => {
+                console.log("A")
+                generateAllPosters(productsList);
             });
         }
     });
+    
 });
 
 function generatePoster(product) {
@@ -44,6 +51,20 @@ function generatePoster(product) {
     // For this example, I'll just log the product data
     window.api.send('save-products-list', productsList);
     window.api.send('generate-poster', product);
+    // You can display the poster in a new window or as a download
+    // This would be similar to the poster generation code shown in previous examples
+}
+
+
+
+
+function generateAllPosters(productsList) {
+    console.log('Generating All posters');
+    // Here you would use your poster generation logic
+    // This might involve using the Handlebars template you created earlier
+    // For this example, I'll just log the product data
+    // window.api.send('save-products-list', productsList);
+    window.api.send('generate-bulk-posters', productsList);
     // You can display the poster in a new window or as a download
     // This would be similar to the poster generation code shown in previous examples
 }

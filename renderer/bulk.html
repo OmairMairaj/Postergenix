@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src 'self' data:;">
-    <title>Product Poster</title>
+    <title>Bulk Product Poster</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <style>
@@ -40,6 +40,10 @@
                 <a class="back__link" href="./listing.html"><i class="fa-solid fa-chevron-left"></i></a>
             </div>
         </div>
+        <div class="progress-section">
+            <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+        </div>
+        <p id="progressMessage" class="progress__msg">Generating posters...</p>
         <!--    <div class="template__logo"></div>
             <div class="template__heading">Product Poster</div>
         </div>
@@ -63,11 +67,11 @@
                 </div>
                 <div class="poster-details__item">
                     <div class="poster-details__item__value" id="packing"></div>
-                    <div class="poster-details__item__label">الشحن</div>
+                    <div class="poster-details__item__label">الشحن:</div>
                 </div>
                 <div class="poster-details__item">
                     <div class="poster-details__item__value" id="salePrice"></div>
-                    <div class="poster-details__item__label">سعر الحبة</div>
+                    <div class="poster-details__item__label">سعر الحبة:</div>
                 </div>
             </div>
         </div>
@@ -75,7 +79,7 @@
 
 
     <script src="./lib/html-to-image.js"></script>
-    <script src="templaterenderer.js"></script>
+    <script src="bulkrenderer.js"></script>
 </body>
 
 </html>

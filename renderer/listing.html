@@ -7,21 +7,24 @@
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
     <title>PosterGenix</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 </head>
 
 <body>
     <div class="listing__page">
         <div class="back">
-            <a class="back__link" href="./inputs.html">Back</a>
+            <a class="back__link" href="./inputs.html"><i class="fa-solid fa-chevron-left"></i></a>
         </div>
         <div class="listing__header">
             <div class="listing__logo"></div>
             <div  class="listing__heading">Product List</div>
+            <button id="bulkGenerateButton" class="listing__bulk__button">Generate All Posters</button>
         </div>
         <div class="table__container">
             <table id="productsTable">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Item Image</th>
                         <th>Item Number</th>
                         <th>Packing</th>
@@ -31,6 +34,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>--</td>
                         <td>Item Image</td>
                         <td>Item Number</td>
                         <td>Packing</td>

@@ -2,11 +2,11 @@ body {
   /* Replace with your actual gradient colors */
   background: linear-gradient(135deg, #3C5762, #021010);
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   /* flex-direction: column; */
-  /* justify-content: center; */
-  /* align-items: center; */
+  justify-content: center;
+  align-items: center;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -104,6 +104,11 @@ body {
 .back__link {
   color: #fff !important;
   text-decoration: none !important;
+}
+
+.fa-chevron-left{
+  font-size: 1.5rem;
+  margin-left: 10px;
 }
 
 .input__logo {
@@ -206,16 +211,28 @@ body {
 .listing__header {
   display: flex;
   align-items: center;
+  margin: 0px 20px;
+  position: relative;
 }
 
 .listing__logo {
-  width: 130px;
+  width: 110px;
   height: 150px;
   background-image: url('../../assets/logo.png');
   /* Path to your logo */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.listing__bulk__button{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  /* margin: 0px 20px; */
+  padding: 10px 20px;
+  width: 200px;
+  justify-self: baseline;
 }
 
 .listing__heading {
@@ -227,7 +244,7 @@ body {
 }
 
 .table__container {
-  max-height: calc(37vw);
+  max-height: 65vh;
   /* Adjust based on your requirements */
   overflow-y: auto;
   /* Enables vertical scrolling */
@@ -255,6 +272,12 @@ td {
   /* display: flex; */
   align-items: center;
   justify-content: center;
+}
+
+td:first-child {
+  /* border-left: 1px solid #ddd; */
+  padding: 20px;
+  /* Left border for cells */
 }
 
 th {
@@ -308,8 +331,28 @@ button {
 }
 
 button:hover {
-  background-color: #98550d;
+  background-color: #c06403;
   /* Darker background on hover */
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #4e7d91; 
+  border-radius: 15px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4e7d91; 
 }
 
 .template__page{
@@ -332,11 +375,11 @@ button:hover {
   /* Center the background image */
   background-repeat: no-repeat;
   /* Do not repeat the image */
-  min-height: 700px;
-  max-height: 700px;
+  min-height: 600px;
+  max-height: 600px;
   /* Set to the height of the viewport or as needed */
-  min-width: 700px;
-  max-width: 700px;
+  min-width: 600px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -354,12 +397,12 @@ button:hover {
   flex-wrap: wrap;/* Stack items vertically */
   align-items: center; /* Center items horizontally */
   justify-content: center !important; /* Center items vertically */
-  width: 60%; /* Maximum width of the details section */
+  width: 75%; /* Maximum width of the details section */
   /* margin: auto; Center the details section */
 }
 
 .poster-details__item {
-  background-color: #FF6E8E;
+  background-color: #EC3621;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   display: flex; /* Using flexbox to align label and value */
   align-items: center; /* Center items vertically */
@@ -385,15 +428,37 @@ button:hover {
   color: #ffffff; /* Value text color */
   font-weight: bold; /* Make label bold */
   flex-grow: 1; /* Allow value to take up available space */
-  text-align: right;
+  text-align: center;
   margin-right: 20px;
   font-size: 1.1rem; /* Align value text to the right */
 }
 
 .poster-image{
-  min-width: 400px;
-  max-width: 400px;
-  min-height: 400px;
-  max-height: 400px;
+  min-width: 350px;
+  max-width: 350px;
+  min-height: 320px;
+  max-height: 320px;
   object-fit: contain;
+}
+
+
+.progress-section {
+  width: 80%;
+  /* background-color: #e0e0e0; */
+  border-radius: 2px;
+  margin: 5px 0;
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: #4CAF50;
+  border-radius: 25px;
+  transition: width 0.4s ease;
+}
+
+.progress__msg{
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 5px 0;
 }
