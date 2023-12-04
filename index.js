@@ -5,6 +5,8 @@ const XLSX = require('xlsx');
 const fs = require('fs');
 const htmlPdf = require('html-pdf');
 
+let globalProductsList = [];
+
 
 const isDev = process.env.NODE_ENV !== 'production';
 const isMac = process.platform === 'darwin';
@@ -58,6 +60,8 @@ ipcMain.on('navigate', (event, path) => {
     }
 });
 
+
+
 ipcMain.handle('select-excel-file', async (event) => {
     const { canceled, filePaths } = await dialog.showOpenDialog(win, {
         properties: ['openFile'],
@@ -96,13 +100,21 @@ ipcMain.handle('find-image-for-item', async (event, itemNumber, imagesDirectory)
 
 ipcMain.on('navigate-to-listing', (event, products) => {
     console.log("Received Products in Main:", products); // Debug received data
-
+    globalProductsList = products;
     win.loadFile(path.join(__dirname, 'renderer', 'listing.html'));
 
     // Delay sending the data until after the page has loaded
     setTimeout(() => {
-        win.webContents.send('send-products', products);
+        event.reply('send-products-list', globalProductsList);
     }, 500); // Adjust delay as needed
+});
+
+ipcMain.on('save-products-list', (event, products) => {
+    globalProductsList = products;
+});
+
+ipcMain.on('get-products-list', (event) => {
+    event.reply('send-products-list', globalProductsList);
 });
 
 ipcMain.on('generate-poster', (event, product) => {
@@ -112,7 +124,7 @@ ipcMain.on('generate-poster', (event, product) => {
     win.webContents.once('did-finish-load', () => {
         win.webContents.send('load-product', product);
     });
-});
+}); 
 
 ipcMain.on('save-image', (event, dataUrl) => {
     const desktopPath = app.getPath('desktop');

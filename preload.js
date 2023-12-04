@@ -19,3 +19,4 @@ contextBridge.exposeInMainWorld('api', {
     },
     saveImage: (dataUrl, filePath) => ipcRenderer.send('save-image', dataUrl)
 });
+ 
