@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <title>PosterGenix</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div class="listing__page">
+        <div class="back">
+            <a class="back__link" href="./inputs.html">Back</a>
+        </div>
+        <div class="listing__header">
+            <div class="listing__logo"></div>
+            <div  class="listing__heading">Product List</div>
+        </div>
+        <div class="table__container">
+            <table id="productsTable">
+                <thead>
+                    <tr>
+                        <th>Item Image</th>
+                        <th>Item Number</th>
+                        <th>Packing</th>
+                        <th>Sale Price</th>
+                        <th>Generate Poster</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Item Image</td>
+                        <td>Item Number</td>
+                        <td>Packing</td>
+                        <td>Sale Price</td>
+                        <td>Generate Poster</td>
+                    </tr>
+                    <!-- Products will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="listingrenderer.js"></script>
+</body>
+
+</html>

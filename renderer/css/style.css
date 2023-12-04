@@ -1,0 +1,399 @@
+body {
+  /* Replace with your actual gradient colors */
+  background: linear-gradient(135deg, #3C5762, #021010);
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.home {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  /* Adjust the width and height as per your logo's aspect ratio */
+  width: 300px;
+  height: 300px;
+  background-image: url('../../assets/logo.png');
+  /* Path to your logo */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.container {
+  margin: 20px 0;
+  width: 50%;
+  overflow-wrap: break-word;
+}
+
+.subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 10px 0;
+}
+
+.button {
+  background-color: #f78d1e;
+  /* Orange color */
+  color: white;
+  border: none;
+  padding: 10px 100px;
+  font-size: 18px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  /* Smooth transition for hover effects */
+}
+
+.button__link {
+  height: 30px !important;
+  width: 100px !important;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+/* Hover effect */
+.button:hover {
+  background-color: #ca6405;
+  /* A lighter orange for hover state */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Adding a shadow for depth */
+  transform: translateY(-10px);
+  /* Slightly raise the button */
+}
+
+/* Active effect */
+.button:active {
+  transform: translateY(1px);
+  /* Pressing down effect */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  /* Smaller shadow for depth */
+}
+
+.input__page {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding-top: 10px;
+}
+
+.back {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.back__link {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+.input__logo {
+  /* Adjust the width and height as per your logo's aspect ratio */
+  width: 200px;
+  height: 200px;
+  background-image: url('../../assets/logo.png');
+  /* Path to your logo */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 30px 0;
+}
+
+.input__container {
+  margin: 10px 0;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  overflow-wrap: break-word;
+}
+
+.input__page__heading {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.input__group {
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input__group label {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.input__group input {
+  width: 100%;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
+  padding: 0 10px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  width: 200px;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.input__group input:focus {
+  outline: none;
+}
+
+.input__group input:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  /* Slightly raise the button */
+}
+
+.path_display {
+  position: absolute;
+  left: calc(50vw + 200px);
+  /* background: #3C5762; */
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 10px;
+  border-radius: 15px;
+  /* Styles to display the path next to the button */
+  margin-left: 10px;
+  /* Spacing from the button */
+  /* white-space: nowrap; Prevent wrapping of text */
+  /* overflow: hidden; Hide overflow */
+  /* text-overflow: ellipsis; Add ellipsis for overflowed text */
+  width: 200px;
+  flex-wrap: wrap;
+  display: inline-block;
+  /* Align with button */
+}
+
+.listing__page {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* text-align: center; */
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+}
+
+.listing__header {
+  display: flex;
+  align-items: center;
+}
+
+.listing__logo {
+  width: 130px;
+  height: 150px;
+  background-image: url('../../assets/logo.png');
+  /* Path to your logo */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.listing__heading {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 0px;
+  width: calc(100% - 260px);
+}
+
+.table__container {
+  max-height: calc(37vw);
+  /* Adjust based on your requirements */
+  overflow-y: auto;
+  /* Enables vertical scrolling */
+  margin: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  /* Rounded corners for the table container */
+  /* background: #fff; Background color for the table */
+}
+
+table {
+  width: 100%;
+  /* Full width of the container */
+  border-collapse: collapse;
+  /*Collapse borders */
+}
+
+td {
+  padding: 5px;
+  /* Padding for table cells */
+  /* text-align: center; Align text to the left */
+  border-bottom: 1px solid #ddd;
+  color: #fff;
+  /* Bottom border for cells */
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+}
+
+th {
+  padding: 10px;
+  /* Padding for table cells */
+  /* text-align: center; Align text to the left */
+  border-bottom: 1px solid #ddd;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  background-color: #f78d1e;
+  /* Background color for headers */
+  color: white;
+  /* Text color for headers */
+}
+
+tbody tr:hover {
+  background: #3f59635c;
+  /* Hover effect for rows */
+}
+
+.table__container img {
+  width: 80px;
+  /* Fixed width */
+  height: 80px;
+  /* Fixed height */
+  object-fit: contain;
+  /* Maintain aspect ratio without stretching the image */
+  /* background-color: white; */
+  /* Set a default background color */
+  border-radius: 5px;
+  /* Optional: if you want rounded corners */
+  margin: auto;
+  /* Center the image in the cell if the cell is larger than the image */
+  display: block;
+}
+
+button {
+  padding: 5px 10px;
+  /* Padding inside the button */
+  background-color: #f78d1e;
+  /* Button background color */
+  color: white;
+  /* Button text color */
+  border: none;
+  /* Remove border */
+  border-radius: 3px;
+  /* Rounded corners for the button */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+}
+
+button:hover {
+  background-color: #98550d;
+  /* Darker background on hover */
+}
+
+.template__page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+}
+
+.template__poster {
+  background-image: url('../../assets/poster__background.png');
+  /* Make sure to put the correct path to your image */
+  background-size: cover;
+  /* Cover the entire area of the element */
+  background-position: center;
+  /* Center the background image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  min-height: 700px;
+  max-height: 700px;
+  /* Set to the height of the viewport or as needed */
+  min-width: 700px;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.poster-details {
+  /* background-color: #fff; Adjust the background color as needed */
+  border-radius: 10px; /* Rounded corners */
+  padding: 5px; /* Spacing inside the container */
+  /* box-shadow: 0 2px 5px rgba(0,0,0,0.2); Box-shadow for a subtle depth effect */
+  display: flex; /* Using flexbox to align items */
+  flex-direction: row; 
+  flex-wrap: wrap;/* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center !important; /* Center items vertically */
+  width: 60%; /* Maximum width of the details section */
+  /* margin: auto; Center the details section */
+}
+
+.poster-details__item {
+  background-color: #FF6E8E;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  display: flex; /* Using flexbox to align label and value */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Separate label and value */
+  width: 40%; /* Full width */
+  margin-bottom: 10px;
+  margin: 10px 5px; /* Space between items */
+  padding: 10px 10px;
+  border-radius: 15px;
+}
+
+.poster-details__item:last-child {
+  margin-bottom: 0;
+  width: 50%; /* Remove margin from the last item */
+}
+
+.poster-details__item__label {
+  color: #ffffff; /* Label text color */
+  margin-right: 10px; /* Space between label and value */
+}
+
+.poster-details__item__value {
+  color: #ffffff; /* Value text color */
+  font-weight: bold; /* Make label bold */
+  flex-grow: 1; /* Allow value to take up available space */
+  text-align: right;
+  margin-right: 20px;
+  font-size: 1.1rem; /* Align value text to the right */
+}
+
+.poster-image{
+  min-width: 400px;
+  max-width: 400px;
+  min-height: 400px;
+  max-height: 400px;
+  object-fit: contain;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Poster</title>
+    <style>
+        .poster {
+            text-align: center;
+            padding: 20px;
+        }
+        .poster img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <img src="{{imagePath}}" alt="{{itemName}}">
+        <h1>{{itemName}}</h1>
+        <p>Item Number: {{itemNumber}}</p>
+        <p>Price: ${{price}}</p>
+        <p>Packing: {{packing}}</p>
+    </div>
+</body>
+</html>

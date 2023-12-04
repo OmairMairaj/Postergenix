@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src 'self' data:;">
+    <title>Product Poster</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .poster-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .poster-image {
+            max-width: 300px;
+            max-height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .poster-details {
+            text-align: center;
+        }
+
+        /* Add more styles as per your design */
+    </style>
+</head>
+
+<body>
+    <div class="template__page">
+        <!-- <div class="template__header">
+            <div class="back">
+                <a class="back__link" href="./listing.html">Back</a>
+            </div>
+            <div class="template__logo"></div>
+            <div class="template__heading">Product Poster</div>
+        </div>
+        <div class="poster-container" id="posterContainer">           
+            <img id="productImage" src="" alt="Product Image" class="poster-image">
+            <div class="poster-details">
+                <h2 id="itemName"></h2>
+                <p id="itemNumber"></p>
+                <p id="packing"></p>
+                <p id="salePrice"></p>
+            </div>
+        </div>
+        <button id="downloadButton">Download as Image</button> -->
+        <div class="template__poster" id="posterContainer">
+            <img  id="productImage" class="poster-image" src="../assets/logo.png" alt="Poster Image">
+            <div class="poster-details">
+                <!-- <h2 id="itemName">Hello</h2> -->
+                <div class="poster-details__item">
+                    <div class="poster-details__item__label">ITEM NO:</div>
+                    <div class="poster-details__item__value" id="itemNumber">18404</div>
+                </div>
+                <div class="poster-details__item">
+                    <div class="poster-details__item__label">PACKING:</div>
+                    <div class="poster-details__item__value" id="packing">18404</div>
+                </div>
+                <div class="poster-details__item">
+                    <div class="poster-details__item__label">SALE PRICE:</div>
+                    <div class="poster-details__item__value" id="salePrice">18404</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script src="./lib/html-to-image.js"></script>
+    <script src="templaterenderer.js"></script>
+</body>
+
+</html>
