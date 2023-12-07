@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('submit-button').addEventListener('click', () => {
 
         if (!excelFilePath || !imagesDirectoryPath) {
-            console.error('Please select both an Excel file and an image directory.');
+            alert('Please select both an Excel file and an image directory.');
             return;
         }
         // window.electron.navigate('renderer/template.html');
@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // imageInfoDiv.appendChild(imageElement);
                     } else {
                         console.log(`No image found for item ${row["ITEM_NO"]}`);
+                        return row["ITEM_NO"];
                         // Update the UI when no image is found
                         // const noImageElement = document.createElement('div');
                         // noImageElement.textContent = `No image found for item ${row["ITEM_NO"]}`;
@@ -84,7 +85,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             });
-            Promise.all(imageFindingPromises).then(() => {
+            Promise.all(imageFindingPromises).then(results => {
+                const missingImages = results.filter(itemNumber => itemNumber !== undefined);
+                if (missingImages.length > 0) {
+                    // Show an alert with the missing item numbers
+                    alert('Images not found for item numbers: ' + missingImages.join(', '));
+                    // Or update the UI to show the missing images
+                    // document.getElementById('missingImages').textContent = 'Missing images for item numbers: ' + missingImages.join(', ');
+                }
                 console.log("Final Products:", Products);
                 window.api.send('navigate-to-listing', Products);
             });

@@ -1,7 +1,7 @@
 {
   "name": "postergenix",
   "productName": "PosterGenix",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "App to generate templates for products from excel file input",
   "main": "index.js",
   "scripts": {
