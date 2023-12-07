@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const node = document.getElementById('posterContainer');
         
         document.getElementById('itemNumber').textContent = product.itemNumber;
-        document.getElementById('packing').textContent = product.packing;
-        document.getElementById('salePrice').textContent = product.salePrice;
+        document.getElementById('packing').textContent = product.packing + ' Pcs';
+        document.getElementById('salePrice').textContent = product.salePrice + ' SR';
 
         productImage.onload = () => {
             // Image is loaded, now convert to PNG
