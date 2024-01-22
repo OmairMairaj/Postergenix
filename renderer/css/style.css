@@ -402,7 +402,7 @@ button:hover {
 }
 
 .poster-details__item {
-  background-color: #EC3621;
+  background-color: #000000;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   display: flex; /* Using flexbox to align label and value */
   align-items: center; /* Center items vertically */
