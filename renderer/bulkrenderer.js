@@ -29,6 +29,16 @@ function generatePoster(product) {
         const productImage = document.getElementById('productImage');
         const node = document.getElementById('posterContainer');
 
+        // Debug: Log the background image path to ensure it's correct
+        // console.log('Background image path:', product.backgroundImagePath);
+
+        // Ensure that node has dimensions; otherwise, the background won't show
+        // node.style.width = '100%'; // Example width, adjust as needed
+        // node.style.height = '500px'; // Example height, adjust as needed
+        node.style.backgroundImage = `url('file:///${product.backgroundImagePath.replace(/\\/g, '/')}')`;
+        // node.style.backgroundSize = 'cover'; // Ensure the image covers the container
+        // node.style.backgroundPosition = 'center'; // Center the background image
+
         // Set product details
         document.getElementById('itemNumber').textContent = product.itemNumber;
         document.getElementById('packing').textContent = product.packing + ' Pcs';
@@ -38,7 +48,7 @@ function generatePoster(product) {
         productImage.onload = async () => {
             try {
                 const dataUrl = await htmlToImage.toPng(node);
-                await window.api.saveImage(dataUrl); // Ensure this is also promise-based
+                await window.api.saveImage(dataUrl,product.itemNumber); // Ensure this is also promise-based
                 resolve();
             } catch (error) {
                 console.error('Failed to convert to image:', error);

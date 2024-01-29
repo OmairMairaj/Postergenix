@@ -1,5 +1,6 @@
 let excelFilePath = '';
 let imagesDirectoryPath = '';
+let BackgroundImagePath = '';
 let Products = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -48,15 +49,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Handle Background Image selection
+    document.getElementById('background-image').addEventListener('click', () => {
+        window.api.selectImage().then(selectedPath => {
+            BackgroundImagePath = selectedPath;
+            if (BackgroundImagePath) {
+                // Update the UI to show the selected image path
+                console.log(BackgroundImagePath);
+                document.getElementById('background-image-path').textContent = `Background Image Selected: ${BackgroundImagePath}`;
+            }
+            else{
+                console.log("No Image Selected");
+            }
+        });
+    });
+
     // Handle Submit button click event
     document.getElementById('submit-button').addEventListener('click', () => {
 
-        if (!excelFilePath || !imagesDirectoryPath) {
-            alert('Please select both an Excel file and an image directory.');
+        if (!excelFilePath || !imagesDirectoryPath || !BackgroundImagePath) {
+            alert('Please select an Excel file and an image directory and a background image');
             return;
         }
         // window.electron.navigate('renderer/template.html');
-        // Clear previous data
+        // Clear previous data if needed
+        Products = [];
 
         // Parse the Excel file and process each row
         window.api.parseExcelFile(excelFilePath).then(data => {
@@ -69,7 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             itemNumber: row["ITEM_NO"],
                             imagePath: imagePath,
                             packing: row["PACKING"],
-                            salePrice: row["SALE_PRICE"]
+                            salePrice: row["SALE_PRICE"],
+                            backgroundImagePath: BackgroundImagePath // Include the background image path
                         };
                         Products.push(product);
                         // const imageElement = document.createElement('div');

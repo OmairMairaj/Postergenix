@@ -172,6 +172,19 @@ ipcMain.handle('select-image-directory', async (event) => {
     }
 });
 
+ipcMain.handle('select-image', async (event) => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(win, {
+        properties: ['openFile'],
+        filters: [{ name: 'Image File', extensions: ['png'] }]
+    });
+    if (canceled) {
+        console.log("canceled");
+        return '';
+    } else {
+        return filePaths[0];
+    }
+});
+
 ipcMain.handle('parse-excel-file', async (event, excelFilePath) => {
     const workbook = XLSX.readFile(excelFilePath);
     const sheetName = workbook.SheetNames[0];
@@ -205,15 +218,14 @@ ipcMain.on('get-products-list', (event) => {
 });
 
 ipcMain.on('generate-poster', (event, product) => {
-    // Assuming 'win' is your BrowserWindow instance
+    // Load the template.html and send product data, including backgroundImagePath
     win.loadFile(path.join(__dirname, 'renderer', 'template.html'));
-
     win.webContents.once('did-finish-load', () => {
         win.webContents.send('load-product', product);
     });
 });
 
-ipcMain.on('save-image', async (event, dataUrl) => {
+ipcMain.on('save-image', async (event, dataUrl, itemNumber) => {
     const desktopPath = app.getPath('desktop');
     const date = new Date();
     const dateString = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
@@ -226,7 +238,7 @@ ipcMain.on('save-image', async (event, dataUrl) => {
 
     // Define the path for the image file
     const timestamp = Date.now();
-    const imagePath = path.join(postersPath, `poster-${timestamp}.png`);
+    const imagePath = path.join(postersPath, `${itemNumber}-poster-${timestamp}.png`);
 
     // Convert data URL to buffer and save the file
     const base64Data = dataUrl.replace(/^data:image\/png;base64,/, "");
@@ -247,43 +259,8 @@ ipcMain.on('save-image', async (event, dataUrl) => {
 ipcMain.on('generate-bulk-posters', async (event, productsList) => {
     win.loadFile(path.join(__dirname, 'renderer', 'bulk.html'));
 
-    // for (let i = 0; i < productsList.length; i++) {
-    // const product = productsList[i];
-    // Generate poster logic (this could be a separate function)
     win.webContents.once('did-finish-load', () => {
         win.webContents.send('load-page', productsList);
     });
-    // Save poster logic (similar to the 'save-image' logic already implemented)
-    // const desktopPath = app.getPath('desktop');
-    // const date = new Date();
-    // const dateString = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-    // const postersPath = path.join(desktopPath, 'posters', dateString);
-
-    // Check if the directory exists, create it if it doesn't
-    // if (!fs.existsSync(postersPath)) {
-    //     fs.mkdirSync(postersPath, { recursive: true });
-    // }
-
-    // Define the path for the image file
-    // const timestamp = Date.now();
-    // const imagePath = path.join(postersPath, `poster-${timestamp}.png`);
-
-    // Convert data URL to buffer and save the file
-    // const base64Data = dataUrl.replace(/^data:image\/png;base64,/, "");
-    // const imgBuffer = Buffer.from(base64Data, 'base64');
-
-    // fs.writeFile(imagePath, imgBuffer, err => {
-    //     if (err) {
-    //         console.error('Failed to save image:', err);
-    //         return;
-    //     }
-    //     console.log('Image saved successfully to:', imagePath);
-    // Optionally, you can send back a success message or the file path to the renderer
-    //     event.reply('image-saved', imagePath);
-    // });
-    // After each poster is generated and saved:
-    // win.webContents.send('update-progress', i + 1, productsList.length);
-    // }
-    // return 'completed'; // This could return a more detailed status if needed
 });
 

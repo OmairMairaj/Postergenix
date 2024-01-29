@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld('electron', {
 contextBridge.exposeInMainWorld('api', {
     selectExcelFile: () => ipcRenderer.invoke('select-excel-file'),
     selectImageDirectory: () => ipcRenderer.invoke('select-image-directory'),
+    selectImage: () => ipcRenderer.invoke('select-image'),
     parseExcelFile: (excelFilePath) => ipcRenderer.invoke('parse-excel-file', excelFilePath),
     findImageForItem: (itemNumber, imagesDirectory) => ipcRenderer.invoke('find-image-for-item', itemNumber, imagesDirectory),
     send: (channel, data) => {
@@ -17,6 +18,6 @@ contextBridge.exposeInMainWorld('api', {
     receive: (channel, func) => {
         ipcRenderer.on(channel, (event, ...args) => func(...args));
     },
-    saveImage: (dataUrl, filePath) => ipcRenderer.send('save-image', dataUrl)
+    saveImage: (dataUrl, itemNumber) => ipcRenderer.send('save-image', dataUrl, itemNumber)
 });
  
